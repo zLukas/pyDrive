@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # others
-*.json
+pyDrive.json
+token.json
 *.lock
 .DS_Store
