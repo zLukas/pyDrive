@@ -4,12 +4,14 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
+#TODO: create class/vars to hold data like, SCOPE or creds/token dir 
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive',
+          'https://www.googleapis.com/auth/drive.metadata']
 
+# TODO: 
 def validate_creds(creds):
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -25,9 +27,7 @@ def validate_creds(creds):
         pass
     return creds
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
-
+# TODO: Pass SCOPES and token as param
 def api_login():
     creds = None
 
@@ -42,10 +42,6 @@ def api_login():
 
     validated_creds = validate_creds(creds)
 
-    try:
-        service = build('drive', 'v3', credentials=creds)
-    except HttpError as error:
-        service = None
-        print(f'An error occurred: {error}')
-    finally:
-        return service
+    
+    service = build('drive', 'v3', credentials=creds)
+    return service

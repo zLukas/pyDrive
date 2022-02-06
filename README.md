@@ -5,6 +5,8 @@ tool features:
 - upload files/folders
 - download files/folders
 
+[google API docs](https://developers.google.com/drive/api/v3/about-sdk)
+
 # prequsities
 * pipenv
 * google account
