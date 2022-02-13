@@ -1,4 +1,4 @@
-from io import BytesIO
+from io import FileIO
 from googleapiclient.http import MediaIoBaseDownload
 class DriveFiles:
     def __init__(self, service = None):
@@ -10,7 +10,7 @@ class DriveFiles:
         '''
         Description: find specific resource in google drive,  by name ( file and folder)
         params: resource name
-        return: dict with kind, name, parents field
+        return: dict, keys = ["id", "kind", "name", "parents field"]
         '''
         serch_filter = "name="+ "'" + name + "'"
         files_service = self.__service.files()
@@ -27,9 +27,9 @@ class DriveFiles:
             return dict(search_list['files'][0])
 
 
-    def download_file(self, file_id):
+    def download_file(self, file_id, file_name):
         request = self.__service.files().get_media(fileId=file_id)
-        fh = BytesIO()
+        fh = FileIO(file_name, 'wb')
         downloader = MediaIoBaseDownload(fh, request)
         done = False
         while done is False:

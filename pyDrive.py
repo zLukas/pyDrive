@@ -1,18 +1,58 @@
-from googleApi import api_login
 from googleApi import DriveFiles
+from googleApi import DriveLogin
 from sys import argv
-from configparser import ConfigParser
+from os import environ
+from os import mkdir
+from os import path
+from os import chdir
+from os import getcwd
 
-api_service = api_login()
+
+DOWNLOAD_DIR='downloads'
+login = DriveLogin()
+api_service = login.api_login()
 drive =DriveFiles(api_service)
 
 param = argv[1]
 
+def check_download_folder():
+    if  not path.exists(DOWNLOAD_DIR):
+        mkdir(DOWNLOAD_DIR)
+    else:
+        pass
+
+
 if param == "setup":
-    api = drive.get_resource_metadata("api.ini")
-    drive.download_file(api['id'])
-    data =["parent_dir_id", api['parents'][0]]
-    #config = ConfigParser()
-    #config.read("api.ini")
-    #config["meta"]["parent_dir_id"] = str(api['parents'][0])
-    #config.write(config)
+    check_download_folder()
+
+    drive_dir = argv[2]
+    if drive_dir == None:
+        print("no directory provided")
+    else:
+        # validate directory
+        directory_meta = drive.get_resource_metadata(drive_dir)
+        if drive_dir is not None:
+            environ["PYDRIVE_UPLOAD_FOLDER"] = drive_dir
+            print("target directory set")
+        else:
+            print("no such directory in drive")
+
+    
+elif param == "pull":
+    check_download_folder()
+    resource_name = argv[2]
+    file_meta = drive.get_resource_metadata(resource_name)
+    if file_meta is not None:
+        base_dir = getcwd()
+        chdir(DOWNLOAD_DIR)
+        drive.download_file(file_meta['id'], file_meta['name'])
+        chdir(base_dir)
+    else:
+        print("file not exist")    
+    
+
+
+
+elif param == "push":
+    pass
+
