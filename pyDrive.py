@@ -22,14 +22,10 @@ if param == "pull":
         pass
 
     resource_name = argv[2]
-    file_meta = drive.get_resource_metadata(resource_name)
-    if file_meta is not None:
-        base_dir = getcwd()
-        chdir(DOWNLOAD_DIR)
-        drive.download_file(file_meta['id'], file_meta['name'])
-        chdir(base_dir)
-    else:
-        print("file not exist")    
+    base_dir = getcwd()
+    chdir(DOWNLOAD_DIR)
+    drive.download_file(resource_name)
+    chdir(base_dir)   
     
 elif param == "push":
     if len(argv) < 4:
