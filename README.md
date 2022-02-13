@@ -1,9 +1,8 @@
 # pyDrive
 Python command line tool for simple google drive management, using [Python Google Drive api](https://github.com/googleworkspace/python-samples). 
 tool features:
-- list drive directory
-- upload files/folders
-- download files/folders
+- upload files
+- download files
 
 [google API docs](https://developers.google.com/drive/api/v3/about-sdk)
 
