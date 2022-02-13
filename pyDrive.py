@@ -11,7 +11,7 @@ from os import getcwd
 DOWNLOAD_DIR='downloads'
 login = DriveLogin()
 api_service = login.api_login()
-drive =DriveFiles(api_service)
+drive = DriveFiles(api_service)
 
 param = argv[1]
   
@@ -36,5 +36,3 @@ elif param == "push":
         folder_meta = drive.get_resource_metadata(dir)
         upload_id = drive.upload_file('test.txt', folder_meta['id'])
         print(f" uploaded file id: {upload_id} ")
-
-    
