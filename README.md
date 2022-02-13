@@ -36,7 +36,7 @@ $ python3 pyDrive.py push <Drive folder> <file to upload>
 
 at first run google will ask you to grant access for application:
 ```
-$ python3 pyDrive.py push file.txt
+$ python3 pyDrive.py pull file.txt
 Please visit this URL to authorize this application: <url>
 
 ```
