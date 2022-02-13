@@ -5,14 +5,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from os import environ
 
-
+# TODO: Pass SCOPES and credential tokens as param
 class DriveLogin():
     def __init__(self) -> None:
         # If modifying these scopes, delete the file token.json.
-        self.__scopes = ['https://www.googleapis.com/auth/drive.file',
+        self.__scopes = ['https://www.googleapis.com/auth/drive',
                          'https://www.googleapis.com/auth/drive.readonly',
-                         'https://www.googleapis.com/auth/drive.metadata',
-                         'https://www.googleapis.com/auth/drive.metadata.readonly']
+                         'https://www.googleapis.com/auth/drive.metadata']
         # TODO: read token and creds dirs form env variables, validate them
 
     def validate_creds(self, creds):
@@ -30,7 +29,7 @@ class DriveLogin():
             pass
         return creds
 
-# TODO: Pass SCOPES and token as param
+
     def api_login(self):
         creds = None
 
@@ -43,7 +42,6 @@ class DriveLogin():
         else:
             pass
         validated_creds = self.validate_creds(creds)
-
     
         service = build('drive', 'v3', credentials=validated_creds)
         return service
