@@ -15,6 +15,11 @@ class DriveLogin():
         # TODO: read token and creds dirs form env variables, validate them
 
     def validate_creds(self, creds):
+        '''
+            Description: Validate provided credential
+            params: cred - credential file (json) to validate
+            return: new_file_id['id'] - new file drive id
+        '''
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
@@ -31,6 +36,11 @@ class DriveLogin():
 
 
     def api_login(self):
+        '''
+            Description: log in into google cloud service
+            params: none 
+            return: service - open api session
+        '''
         creds = None
 
         # The file token.json stores the user's access and refresh tokens, and is

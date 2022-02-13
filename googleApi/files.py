@@ -9,9 +9,9 @@ class DriveFiles:
 
     def get_resource_metadata(self, name):
         '''
-        Description: find specific resource in google drive,  by name ( file and folder)
-        params: resource name
-        return: dict, keys = ["id", "kind", "name", "parents field"]
+            Description: find specific resource in google drive,  by name ( file and folder)
+            params: resource name
+            return: dict, keys = ["id", "kind", "name", "parents field"]
         '''
         serch_filter = "name="+ "'" + name + "'"
         files_service = self.__service.files()
@@ -28,8 +28,15 @@ class DriveFiles:
             return dict(search_list['files'][0])
 
 
-    def download_file(self, file_id, file_name):
-        request = self.__service.files().get_media(fileId=file_id)
+    def download_file(self, file_name):
+        '''
+            Description: download a file from google drive
+            params: file_name - name of the file to download
+            return: None
+        '''
+
+        file_meta = self.get_resource_metadata("file_name")
+        request = self.__service.files().get_media(fileId=file_meta['id'])
         fh = FileIO(file_name, 'wb')
         downloader = MediaIoBaseDownload(fh, request)
         done = False
@@ -39,6 +46,12 @@ class DriveFiles:
 
 
     def upload_file(self, file_name, parent_folder_id):
+        '''
+            Description: upload a file from local to google drive
+            params: file_name - name of the file to update
+                    parent_folder_id - drive id of folder in which file will be uploaded
+            return: new_file_id['id'] - new file drive id
+        '''
         file_metadata = {'name': file_name,
                          'parents': [parent_folder_id]}
         media = MediaFileUpload(file_name, mimetype='text/plain')
@@ -51,7 +64,7 @@ class DriveFiles:
 
 
     def create_folder(self, folder_name):
-
+        # TBD
         if self.__service:
             folder_metadata = {
                 'name': folder_name,
