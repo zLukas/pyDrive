@@ -11,7 +11,7 @@ tool features:
 * google account
 * GCP cloud project([details](https://cloud.google.com))
 * Enabled Drive API ([details](https://developers.google.com/workspace/guides/create-project))
-* OAuth client ID credential (with .json file)([details](https://developers.google.com/workspace/guides/create-credentials))
+* OAuth2 client ID credential (with .json file)([details](https://developers.google.com/workspace/guides/create-credentials))
 * Test users For Google Oauth Api defined In Google Console([details](https://support.google.com/cloud/answer/10311615?hl=en#publishing-status&zippy=%2Cexternal%2Ctesting))
 
 # Usage
