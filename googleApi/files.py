@@ -35,7 +35,7 @@ class DriveFiles:
             return: None
         '''
 
-        file_meta = self.get_resource_metadata("file_name")
+        file_meta = self.get_resource_metadata(file_name)
         request = self.__service.files().get_media(fileId=file_meta['id'])
         fh = FileIO(file_name, 'wb')
         downloader = MediaIoBaseDownload(fh, request)
