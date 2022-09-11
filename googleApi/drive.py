@@ -21,7 +21,7 @@ class Drive():
         chdir(base_dir) 
 
     def upload_file(self,file_name, upload_dir):
-        folder_meta = self.get_resource_metadata(upload_dir)
+        folder_meta = self.drive_files.get_resource_metadata(upload_dir)
         file_id = self.drive_files.upload_file(file_name, folder_meta['id'])
         return file_id
         

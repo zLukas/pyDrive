@@ -11,9 +11,9 @@ class DriveFiles:
             params: resource name
             return: dict, keys = ["id", "kind", "name", "parents field"]
         '''
-        serch_filter = "name="+ "'" + name + "'"
+        search_filter = "name="+ "'" + name + "'"
         files_service = self.__service.files()
-        list_service  = files_service.list(q = serch_filter,
+        list_service  = files_service.list(q = search_filter,
                                            pageSize=1, 
                                            # all possible fields here:
                                            #https://developers.google.com/drive/api/v3/reference/files
@@ -34,15 +34,20 @@ class DriveFiles:
         '''
 
         file_meta = self.get_resource_metadata(file_name)
-        request = self.__service.files().get_media(fileId=file_meta['id'])
-        fh = FileIO(file_name, 'wb')
-        downloader = MediaIoBaseDownload(fh, request)
-        done = False
-        while done is False:
-            status, done = downloader.next_chunk()
-            print (f"Download {int(status.progress() * 100)}.")
+        # none type exception
+        if file_meta:
+            request = self.__service.files().get_media(fileId=file_meta['id'])
+            fh = FileIO(file_name, 'wb')
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+            while done is False:
+                status, done = downloader.next_chunk()
+                print (f"Download {int(status.progress() * 100)}.")
+        else:
+            print(f"{file_name} not found in drive")
 
 
+    #TODO: handle the case when file already exist
     def upload_file(self, file_name, parent_folder_id):
         '''
             Description: upload a file from local to google drive
