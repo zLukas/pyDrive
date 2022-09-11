@@ -23,22 +23,36 @@ $ pipenv shell
 $ (pyDrive) pipenv install 
 ```
 
+See availible options running following command:
+```
+$ python3 pyDrive.py -h
+```
 
 Get files from google drive:  
 ```
-$ python3 pyDrive.py pull <file name>
+$ python3 pyDrive.py --credentials < credentials >.json  \ 
+                     --download \
+                     --files <files to download> \
+                     --destination < download folder >
 ```
 
 upload a file to google drive:  
 ```
-$ python3 pyDrive.py push <Drive folder> <file to upload>
+pyDrive.py --credentials < credentials >.json \
+           --files <files to upload
+           --destination < dirve upload folder>
 ```
 
-at first run google will ask you to grant access for application:
+At first run google will ask you to grant access for application:
 ```
-$ python3 pyDrive.py pull file.txt
+$ python3 pyDrive.py ...
 Please visit this URL to authorize this application: <url>
 
 ```
 follow the link to authorize the application.  
 This autorization is a one time event, unless you change/update token.json file
+
+
+Known Issues:
+1. pyDrive.py will only upload to existing folder it does not create one ad-hoc, if provided folder do not exist, script will return error
+2. Uploading the same file in the same directory once again will result in error.
