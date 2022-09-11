@@ -4,8 +4,6 @@ from googleapiclient.http import MediaFileUpload
 class DriveFiles:
     def __init__(self, service = None):
         self.__service = service
-        self.__folders_mime="mimeType = 'application/vnd.google-apps.folder'"
-        self.__root_folder_id=None
 
     def get_resource_metadata(self, name):
         '''

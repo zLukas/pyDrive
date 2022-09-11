@@ -3,17 +3,13 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from enum import Enum
-from os import environ
 
 class DriveLogin():
-    GENERATED_TOKEN_NAME = 'token.json'
     def __init__(self, creds_path) -> None:
         # If modifying these scopes, delete the file token.json.
         self.__scopes = ['https://www.googleapis.com/auth/drive',
                          'https://www.googleapis.com/auth/drive.readonly',
                          'https://www.googleapis.com/auth/drive.metadata']
-        # TODO: read token and creds dirs form env variables, validate them
         self.__creds_file = creds_path
         self.GENERATED_TOKEN_NAME = 'token.json'
 
@@ -53,7 +49,7 @@ class DriveLogin():
         if os.path.exists(self.GENERATED_TOKEN_NAME):
             creds = Credentials.from_authorized_user_file(self.GENERATED_TOKEN_NAME, self.__scopes)
 
-        validated_creds = self.validate_creds(None)
+        validated_creds = self.validate_creds(creds)
     
         service = build('drive', 'v3', credentials=validated_creds)
         return service
