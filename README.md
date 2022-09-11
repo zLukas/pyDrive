@@ -39,7 +39,8 @@ $ python3 pyDrive.py --credentials < credentials >.json  \
 upload a file to google drive:  
 ```
 pyDrive.py --credentials < credentials >.json \
-           --files <files to upload
+           --upload \
+           --files <files to upload> \
            --destination < dirve upload folder>
 ```
 
@@ -54,5 +55,5 @@ This autorization is a one time event, unless you change/update token.json file
 
 
 Known Issues:
-1. pyDrive.py will only upload to existing folder it does not create one ad-hoc, if provided folder do not exist, script will return error
+1. pyDrive.py will only upload to existing folder it does not create one ad-hoc, if provided folder do not exist it it will result in error.
 2. Uploading the same file in the same directory once again will result in error.
